@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
+import axios from "axios";
 
 const Login = () => {
     const [input, setInput] = useState({})
+    
+    const handleLogin = () => {
+      axios.post('http://localhost:8000/api/login',input).then(res=>{
+          console.log(res.data);
+      })
+    }
     const handleInput = (e) => {
       setInput(prevState => ({...prevState,[e.target.name] : e.target.value}))
 
@@ -66,7 +73,7 @@ const Login = () => {
                                 </div>
 
                                 <div className="text-center text-lg-start mt-4 pt-2">
-                                    <button type="button" className="btn btn-primary btn-lg" id="my-login-btn"
+                                    <button onClick={handleLogin} type="button" className="btn btn-primary btn-lg" id="my-login-btn"
                                             >Login
                                     </button>
 
