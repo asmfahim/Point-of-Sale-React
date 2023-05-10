@@ -1,14 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import Constants from "../../../Constants";
+
 
 const Login = () => {
+
     const [input, setInput] = useState({})
-    
+    const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleLogin = () => {
-      axios.post('http://localhost:8000/api/login',input).then(res=>{
-          console.log(res.data);
+        setIsLoading(true)
+      axios.post(`${Constants.BASE_URL}/login`,input).then(res=>{
+          // console.log(res.data);
+          localStorage.name = res.data.name
+          localStorage.email = res.data.email
+          localStorage.phone = res.data.phone
+          localStorage.photo = res.data.photo
+          localStorage.token = res.data.token
+          setIsLoading(false)
+          window.location.reload()
+      }).catch(errors =>{
+          setIsLoading(false)
+            if (errors.response.status == 422){
+                setErrors(errors.response.data.errors)
+            }
       })
     }
+
     const handleInput = (e) => {
       setInput(prevState => ({...prevState,[e.target.name] : e.target.value}))
 
@@ -49,15 +68,17 @@ const Login = () => {
                                   {/*Email input*/}
 
                                 <div className="form-outline mb-4">
-                                    <input type={'email'} id="form3Example3" className="form-control form-control-lg"
-                                           placeholder="Enter a valid email address" name={'email'} value={input.email} onChange={handleInput}/>
                                     <label className="form-label" htmlFor="form3Example3">Email address</label>
+                                    <input type={'text'} id="form3Example3" className={errors.email != undefined ? 'form-control form-control-lg is-invalid' : 'form-control form-control-lg'}
+                                           placeholder="Enter a valid email address" name={'email'} value={input.email} onChange={handleInput}/>
+                                    <span className="form-label text-danger" htmlFor="form3Example3">{errors.email != undefined ? errors.email[0] : null}</span>
                                 </div>
 
                                 {/*Password input*/}
                                 <div className="form-outline mb-3">
-                                    <input type={'password'} id="form3Example4" className="form-control form-control-lg" placeholder="Enter password" name={'password'} value={input.password} onChange={handleInput}/>
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
+                                    <input type={'password'} id="form3Example4" className={ errors.password != undefined ? 'form-control form-control-lg is-invalid' : 'form-control form-control-lg'} placeholder="Enter password" name={'password'} value={input.password} onChange={handleInput}/>
+                                    <span className="form-label text-danger" htmlFor="form3Example4">{errors.password != undefined ? errors.password[0] : null}</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between align-items-center">
@@ -74,8 +95,8 @@ const Login = () => {
 
                                 <div className="text-center text-lg-start mt-4 pt-2">
                                     <button onClick={handleLogin} type="button" className="btn btn-primary btn-lg" id="my-login-btn"
-                                            >Login
-                                    </button>
+                                       dangerouslySetInnerHTML={{__html: isLoading ? '  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+                                               : 'Login'} }     />
 
                                 </div>
 

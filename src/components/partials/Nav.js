@@ -1,7 +1,38 @@
 import React from 'react';
 import $ from 'jquery'
+import Swal from "sweetalert2";
+import axios from "axios";
+import Constants from "../../Constants";
+
 
 const Nav = () => {
+    const handalLogout = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will be logout",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Logout!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axios.post(`${Constants.BASE_URL}/logout`).then(res=>{
+                    // console.log(res.data);
+                    localStorage.removeItem('name')
+                    localStorage.removeItem('email')
+                    localStorage.removeItem('phone')
+                    localStorage.removeItem('photo')
+                    localStorage.removeItem('token')
+                    window.location.reload()
+                }).catch(errors =>{
+
+                })
+
+            }
+        })
+    }
 
     const handalSideber = () =>{
         $('body').toggleClass('sb-sidenav-toggled')
@@ -35,7 +66,7 @@ const Nav = () => {
                         <li>
                             <hr className="dropdown-divider"/>
                         </li>
-                        <li><a className="dropdown-item" href="#!">Logout</a></li>
+                        <li><button onClick={handalLogout} className="dropdown-item" >Logout</button></li>
                     </ul>
                 </li>
             </ul>
