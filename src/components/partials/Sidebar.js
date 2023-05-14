@@ -79,7 +79,7 @@ const Sidebar = () => {
                 </div>
                 <div className="sb-sidenav-footer">
                     <div className="small">Logged in as:</div>
-                    Start Bootstrap
+                    {localStorage.name != undefined ? localStorage.name : null}
                 </div>
             </nav>
         </div>

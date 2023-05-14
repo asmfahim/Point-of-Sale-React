@@ -3,6 +3,7 @@ import $ from 'jquery'
 import Swal from "sweetalert2";
 import axios from "axios";
 import Constants from "../../Constants";
+import GlobalFunction from "../../GlobalFunction"
 
 
 const Nav = () => {
@@ -20,14 +21,13 @@ const Nav = () => {
 
                 axios.post(`${Constants.BASE_URL}/logout`).then(res=>{
                     // console.log(res.data);
-                    localStorage.removeItem('name')
-                    localStorage.removeItem('email')
-                    localStorage.removeItem('phone')
-                    localStorage.removeItem('photo')
-                    localStorage.removeItem('token')
+                    GlobalFunction.logout()
                     window.location.reload()
+                    // console.log(res.data.token)
                 }).catch(errors =>{
-
+                    GlobalFunction.logout()
+                    // console.log('logoout try catch')
+                    // console.log(localStorage.token)
                 })
 
             }

@@ -6,7 +6,9 @@ import {RouterProvider} from "react-router-dom";
 import ProjectRouter from "./components/router/ProjectRouter";
 import {useEffect, useState} from "react";
 import publicRouter from "./components/router/PublicRouter";
-import axios from "axios";
+import axios from "./AxiosInterceptor";
+
+
 
 
 function App() {
@@ -16,9 +18,9 @@ function App() {
     useEffect(()=>{
         if(localStorage.token != undefined){
             setAuth(true)
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
         }
-    })
+    }, [])
 
 
   return (
