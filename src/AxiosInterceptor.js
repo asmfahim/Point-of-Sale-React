@@ -6,7 +6,7 @@ import GlobalFunction from "./GlobalFunction";
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     if(localStorage.token != undefined){
-        config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+        config.headers['Authorization'] = `Bearer ${localStorage.token}`
     }
     return config;
 }, function (error) {

@@ -5,8 +5,8 @@ import './assets/css/myStyle.css'
 import {RouterProvider} from "react-router-dom";
 import ProjectRouter from "./components/router/ProjectRouter";
 import {useEffect, useState} from "react";
-import publicRouter from "./components/router/PublicRouter";
 import axios from "./AxiosInterceptor";
+import PublicRouter from "./components/router/PublicRouter";
 
 
 
@@ -27,7 +27,7 @@ function App() {
     <>
         {auth ?
         <RouterProvider router={ProjectRouter} /> :
-            <RouterProvider router={publicRouter} />
+            <RouterProvider router={PublicRouter} />
         }
     </>
   );

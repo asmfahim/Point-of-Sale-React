@@ -7,7 +7,6 @@ const BreadCrumb = (props) => {
             <Helmet>
                 {/*<meta charSet="utf-8" />*/}
                 <title>{props.title} | Boi Ghar</title>
-                {/*<link rel="canonical" href="http://mysite.com/example" />*/}
             </Helmet>
             {/*
                 <h3 className="mt-4">Dashboard</h3>

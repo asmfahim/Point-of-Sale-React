@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import Constants from "../../Constants";
 import GlobalFunction from "../../GlobalFunction"
+import {Link} from "react-router-dom";
 
 
 const Nav = () => {
@@ -41,7 +42,7 @@ const Nav = () => {
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             {/* -- Navbar Brand-- */}
-            <a className="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <Link className="navbar-brand ps-3" to="/">Boi Ghar</Link>
             {/*-- Sidebar Toggle-- */}
             <button onClick={handalSideber} className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 className="fas fa-bars"></i></button>
